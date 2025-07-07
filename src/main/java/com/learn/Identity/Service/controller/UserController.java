@@ -3,6 +3,7 @@ package com.learn.Identity.Service.controller;
 import com.learn.Identity.Service.Service.UserService;
 import com.learn.Identity.Service.dto.request.ApiResponse;
 import com.learn.Identity.Service.dto.request.UserCreationRequest;
+import com.learn.Identity.Service.dto.request.UserLoginRequest;
 import com.learn.Identity.Service.dto.request.UserUpdateRequest;
 import com.learn.Identity.Service.dto.response.UserResponse;
 import com.learn.Identity.Service.entity.User;
@@ -46,4 +47,8 @@ public class UserController {
         return "user has been deleted successfully";
     }
 
+    @PostMapping("/login")
+    UserResponse login(@RequestBody @Valid UserLoginRequest request) {
+        return userService.validateUser(request.getUsername(), request.getPassword());
+    }
 }

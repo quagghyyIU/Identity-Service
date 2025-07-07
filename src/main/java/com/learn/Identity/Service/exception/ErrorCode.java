@@ -7,6 +7,7 @@ public enum ErrorCode {
     USER_EXISTED(1001, "User already exists"),
     USERNAME_INVALID(1002, "Username must be between 3 and 50 characters long"),
     INVALID_PASSWORD(1003, "Password must be at least 8 characters long"),
+    INVALID_CREDENTIALS(1004, "Invalid credentials"),
     ;
 
 

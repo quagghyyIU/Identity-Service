@@ -50,4 +50,12 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found")));
     }
+
+    public UserResponse validateUser(String username, String password) {
+        User user = userRepository.validateUser(username, password);
+        if(user == null) {
+            throw new AppException(ErrorCode.INVALID_CREDENTIALS);
+        }
+        return userMapper.toUserResponse(user);
+    }
 }
