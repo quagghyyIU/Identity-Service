@@ -7,19 +7,20 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
     boolean existsByUsername(String userName);
+    Optional<User> findByUsername(String username);
 
-    // Stored procedure login
-    @Query(value = "CALL validateUser(:p_username, :p_password)", nativeQuery = true)
-    User validateUser(
+    // CORRECT WAY: Using @Procedure annotation for stored procedures
+    @Procedure(procedureName = "validateUser")
+    User validateUserStoredProcedure(
         @Param("p_username") String username,
         @Param("p_password") String password
     );
 
-    // Backup plain JPA query (unused for now)
-    User findByUsernameAndPassword(String username, String password);
 
 }
