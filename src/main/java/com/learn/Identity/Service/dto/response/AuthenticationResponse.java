@@ -18,10 +18,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @JsonInclude(Include.NON_NULL)
 public class AuthenticationResponse {
-    boolean isAuthenticated;
-    String username;
-    String email;
-    String firstName;
-    String lastName;
-    LocalDate dob;
+    String token;
+    boolean authenticated;
 }

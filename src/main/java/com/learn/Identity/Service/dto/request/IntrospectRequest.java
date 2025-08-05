@@ -12,6 +12,5 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class IntrospectRequest {
-    String username;
-    String password;
+    String token;
 }

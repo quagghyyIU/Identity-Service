@@ -1,4 +1,6 @@
 package com.learn.Identity.Service.enums;
 
-public class Role {
+public enum Role {
+    ADMIN,
+    USER
 }

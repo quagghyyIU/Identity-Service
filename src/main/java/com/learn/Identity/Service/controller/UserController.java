@@ -14,10 +14,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.AccessLevel;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -29,13 +32,20 @@ public class UserController {
     @PostMapping
     ApiResponse<UserResponse> createUser (@RequestBody @Valid UserCreationRequest request) {
         ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
-        apiResponse.setResult(userService.createRequest(request));
+        apiResponse.setResult(userService.createUser(request));
         return apiResponse;
     }
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.getUsers();
+    ApiResponse<List<UserResponse>> getUsers() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        log.info("User {} is accessing the user list", authentication.getName());
+        authentication.getAuthorities().forEach(grantedAuthority -> log.info(grantedAuthority.getAuthority()));;
+
+        return ApiResponse.<List<UserResponse>>builder()
+                .result(userService.getUsers())
+                .build();
     }
 
     @GetMapping("/{userID}")
@@ -57,5 +67,12 @@ public class UserController {
     @PostMapping("/login")
     UserResponse login(@RequestBody @Valid UserLoginRequest request) {
         return userService.validateUser(request.getUsername(), request.getPassword());
+    }
+
+    @GetMapping("/myinfo")
+    ApiResponse<UserResponse> getMyInfo() {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.getMyInfo())
+                .build();
     }
 }

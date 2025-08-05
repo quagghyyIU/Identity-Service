@@ -21,6 +21,4 @@ public interface UserRepository extends JpaRepository<User, String> {
         @Param("p_username") String username,
         @Param("p_password") String password
     );
-
-
 }
