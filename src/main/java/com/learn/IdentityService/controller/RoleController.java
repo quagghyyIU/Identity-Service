@@ -1,6 +1,6 @@
 package com.learn.IdentityService.controller;
 
-import com.learn.IdentityService.Service.RoleService;
+import com.learn.IdentityService.service.RoleService;
 import com.learn.IdentityService.dto.request.ApiResponse;
 import com.learn.IdentityService.dto.request.RoleRequest;
 import com.learn.IdentityService.dto.response.RoleResponse;

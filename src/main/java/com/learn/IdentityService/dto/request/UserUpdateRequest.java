@@ -1,5 +1,6 @@
 package com.learn.IdentityService.dto.request;
 
+import com.learn.IdentityService.validator.DobConstraint;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,6 +17,8 @@ public class UserUpdateRequest {
     String email;
     String firstName;
     String lastName;
+
+    @DobConstraint(min = 18, message = "INVALID_DOB")
     LocalDate dob;
 
     List<String> roles;

@@ -1,4 +1,4 @@
-package com.learn.IdentityService.Service;
+package com.learn.IdentityService.service;
 
 import com.learn.IdentityService.dto.request.RoleRequest;
 import com.learn.IdentityService.dto.response.RoleResponse;

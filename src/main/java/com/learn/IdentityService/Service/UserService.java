@@ -1,4 +1,4 @@
-package com.learn.IdentityService.Service;
+package com.learn.IdentityService.service;
 
 import com.learn.IdentityService.dto.request.UserUpdateRequest;
 import com.learn.IdentityService.dto.response.UserResponse;

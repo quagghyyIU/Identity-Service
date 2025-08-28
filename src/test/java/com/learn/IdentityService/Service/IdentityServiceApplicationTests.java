@@ -1,4 +1,4 @@
-package com.learn.IdentityService.Service;
+package com.learn.IdentityService.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

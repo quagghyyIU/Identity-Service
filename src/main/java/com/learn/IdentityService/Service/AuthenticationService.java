@@ -1,10 +1,9 @@
-package com.learn.IdentityService.Service;
+package com.learn.IdentityService.service;
 
 import com.learn.IdentityService.dto.request.IntrospectRequest;
 import com.learn.IdentityService.dto.response.AuthenticationResponse;
 import com.learn.IdentityService.dto.response.IntrospectResponse;
 import com.learn.IdentityService.entity.User;
-import com.learn.IdentityService.entity.Role;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -27,14 +26,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.util.CollectionUtils;
 
-import jakarta.annotation.PostConstruct;
 import java.text.ParseException;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.Set;
 import java.util.StringJoiner;
 
 @Slf4j
