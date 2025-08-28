@@ -68,7 +68,7 @@ public class UserService {
         User user = userRepository.findById(userID)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        userMapper. updateUser(user, request);
+        userMapper.updateUser(user, request);
         // If the request contains a new password, hash it before saving
         if(request.getPassword() != null && !request.getPassword().isEmpty()) {
             user.setPassword(new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder(10)
