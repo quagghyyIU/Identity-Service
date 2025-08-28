@@ -6,6 +6,12 @@ import com.learn.IdentityService.dto.request.UserCreationRequest;
 import com.learn.IdentityService.dto.request.UserLoginRequest;
 import com.learn.IdentityService.dto.request.UserUpdateRequest;
 import com.learn.IdentityService.dto.response.UserResponse;
+import com.learn.IdentityService.entity.User;
+import com.learn.IdentityService.exception.AppException;
+import com.learn.IdentityService.exception.ErrorCode;
+import com.learn.IdentityService.mapper.UserMapper;
+import com.learn.IdentityService.repository.RoleRepository;
+import com.learn.IdentityService.repository.UserRepository;
 
 import jakarta.validation.Valid;
 
@@ -14,9 +20,13 @@ import lombok.experimental.FieldDefaults;
 import lombok.AccessLevel;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Slf4j
@@ -25,9 +35,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
-    
     UserService userService;
-
+    UserRepository userRepository;
+    RoleRepository roleRepository;
+    PasswordEncoder passwordEncoder;
+    UserMapper userMapper;
+    
     @PostMapping
     ApiResponse<UserResponse> createUser (@RequestBody @Valid UserCreationRequest request) {
         ApiResponse<UserResponse> apiResponse = new ApiResponse<>();
@@ -54,7 +67,20 @@ public class UserController {
 
     @PutMapping("/{userID}")
     UserResponse updateUser(@PathVariable String userID, @RequestBody UserUpdateRequest request) {
-        return userService.updateUser(userID, request);
+        User user = userRepository.findById(userID)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        
+            userMapper.updateUser(user, request);
+            
+            // Only encode password if it's provided in the request
+            if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(request.getPassword()));
+            }
+
+            var roles = roleRepository.findAllById(request.getRoles());
+            user.setRoles(new HashSet<>(roles));
+
+            return userMapper.toUserResponse(userRepository.save(user));
     }
 
     @DeleteMapping("/{userID}")
