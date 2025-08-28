@@ -1,6 +1,6 @@
 package com.learn.IdentityService.controller;
 
-import com.learn.IdentityService.Service.UserService;
+import com.learn.IdentityService.service.UserService;
 import com.learn.IdentityService.dto.request.ApiResponse;
 import com.learn.IdentityService.dto.request.UserCreationRequest;
 import com.learn.IdentityService.dto.request.UserLoginRequest;
@@ -21,7 +21,6 @@ import lombok.AccessLevel;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;

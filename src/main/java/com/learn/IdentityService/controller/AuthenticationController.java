@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.learn.IdentityService.Service.AuthenticationService;
+import com.learn.IdentityService.service.AuthenticationService;
 import com.learn.IdentityService.dto.request.ApiResponse;
 import com.learn.IdentityService.dto.request.AuthenticationRequest;
 import com.learn.IdentityService.dto.response.AuthenticationResponse;
