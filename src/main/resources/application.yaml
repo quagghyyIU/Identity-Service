@@ -15,3 +15,5 @@ spring:
 
 jwt:
     secret: "CLliqQX0S3JzqrR4bz2ywiWnAtBu/rrGu+WGH7r6kn7JgMor49mwXS7goDLK35Un"
+    valid-duration: 3600 #in seconds
+    refresh-duration: 360000 #in seconds
