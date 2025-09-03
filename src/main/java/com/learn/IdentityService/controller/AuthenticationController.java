@@ -1,7 +1,6 @@
 package com.learn.IdentityService.controller;
 
-import com.learn.IdentityService.dto.request.IntrospectRequest;
-import com.learn.IdentityService.dto.request.LogoutRequest;
+import com.learn.IdentityService.dto.request.*;
 import com.learn.IdentityService.dto.response.IntrospectResponse;
 import com.nimbusds.jose.JOSEException;
 
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.IdentityService.service.AuthenticationService;
-import com.learn.IdentityService.dto.request.ApiResponse;
-import com.learn.IdentityService.dto.request.AuthenticationRequest;
 import com.learn.IdentityService.dto.response.AuthenticationResponse;
 
 @RestController
@@ -40,6 +37,13 @@ public class AuthenticationController {
             throws ParseException, JOSEException {
         var result = authenticationService.introspect(request);
         return ApiResponse.<IntrospectResponse>builder().result(result).build();
+    }
+
+    @PostMapping("/refresh")
+    ApiResponse<AuthenticationResponse> refresh(@RequestBody RefreshRequest request)
+            throws ParseException, JOSEException {
+        var result = authenticationService.refreshToken(request);
+        return ApiResponse.<AuthenticationResponse>builder().result(result).build();
     }
 
     @PostMapping("/logout")
