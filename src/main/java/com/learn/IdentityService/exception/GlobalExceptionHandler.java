@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     ResponseEntity<ApiResponse<Object>> handlingRuntimeException(AppException exception) {
+        
         // Log the actual exception for debugging
         ErrorCode errorCode = exception.getErrorCode();
         ApiResponse<Object> apiResponse = new ApiResponse<>();
